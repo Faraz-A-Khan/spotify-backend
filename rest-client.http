@@ -1,0 +1,21 @@
+### REST Client for Spotify Backend API
+### This file contains HTTP requests for testing the Spotify REST API
+
+### HOME.request
+GET  http://localhost:3000/
+
+### FIND.ALLSONGS request
+GET  http://localhost:3000/songs/
+
+### FIND.SONG.BYID request
+GET   http://localhost:3000/songs/2
+
+### CREATE.SONG.Request
+POST  http://localhost:3000/songs/1
+
+### UPDATE.SONG.Request
+PUT  http://localhost:3000/songs/1
+
+### DELETE.SONG.Request
+DELETE  http://localhost:3000/songs/1
+

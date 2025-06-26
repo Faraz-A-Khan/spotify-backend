@@ -1,10 +1,23 @@
-import { Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, NotFoundException, Param, Post, Put } from '@nestjs/common';
+import { SongsService } from './songs.service';
+import { createSongDto } from './dto/create-song.dto';
 
 @Controller('songs')
 export class SongsController {
+    constructor(private readonly songsService: SongsService) { }
+
+    @Post()
+    create(@Body() song: createSongDto): any {
+        return this.songsService.create(song);
+    }
+
     @Get()
-    findAll(): string {
-        return 'List of songs';
+    findAll() {
+        try {
+            return this.songsService.findAll();
+        } catch (error) {
+            throw new HttpException('No songs found', HttpStatus.NOT_FOUND, {cause: error});
+        }
     }
 
     @Get(':id')
@@ -12,18 +25,13 @@ export class SongsController {
         return `Details of a song with ID: ${id}`;
     }
 
-    @Post()
-    PostSong(): string {
-        return `Song Posted`;
-    }
-
     @Put(':id')
-    updateSong(@Param('id') id: string): string {
+    update(@Param('id') id: string): string {
         return `Details of a song with ID: ${id} updated`;
     }
 
     @Delete(':id')
-    deleteSong(@Param('id') id: string): string {
+    delete(@Param('id') id: string): string {
         return `Song with ID: ${id} deleted`;
     }
 }
